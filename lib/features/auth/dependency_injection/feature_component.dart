@@ -20,7 +20,7 @@ void configureDependencies() {
 void _configureGeneralDependencies() {
   // ignore: unnecessary_statements
   getIt
-      //DO-NOT-REMOVE GENERAL_DEPS_GET_IT_CONFIG
+  //DO-NOT-REMOVE GENERAL_DEPS_GET_IT_CONFIG
       ;
 }
 
@@ -28,7 +28,7 @@ void _configureGeneralDependencies() {
 void _configureRepositories() {
   // ignore: unnecessary_statements
   getIt
-      //DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
+  //DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
       ;
 }
 
@@ -36,7 +36,7 @@ void _configureRepositories() {
 void _configureStores() {
   // ignore: unnecessary_statements
   getIt
-      //DO-NOT-REMOVE STORES_GET_IT_CONFIG
+  //DO-NOT-REMOVE STORES_GET_IT_CONFIG
       ;
 }
 
@@ -44,12 +44,12 @@ void _configureStores() {
 void _configureUseCases() {
   // ignore: unnecessary_statements
   getIt
-        ..registerFactory<LogInUseCase>(
+    ..registerFactory<LogInUseCase>(
           () => LogInUseCase(
-            getIt(),
-          ),
-        )
-      //DO-NOT-REMOVE USE_CASES_GET_IT_CONFIG
+        getIt(),
+      ),
+    )
+  //DO-NOT-REMOVE USE_CASES_GET_IT_CONFIG
 
       ;
 }
@@ -58,24 +58,25 @@ void _configureUseCases() {
 void _configureMvp() {
   // ignore: unnecessary_statements
   getIt
-        ..registerFactory<LoginNavigator>(
+    ..registerFactory<LoginNavigator>(
           () => LoginNavigator(getIt()),
-        )
-        ..registerFactoryParam<LoginPresentationModel, LoginInitialParams, dynamic>(
+    )
+    ..registerFactoryParam<LoginPresentationModel, LoginInitialParams, dynamic>(
           (params, _) => LoginPresentationModel.initial(params),
-        )
-        ..registerFactoryParam<LoginPresenter, LoginInitialParams, dynamic>(
+    )
+    ..registerFactoryParam<LoginPresenter, LoginInitialParams, dynamic>(
           (initialParams, _) => LoginPresenter(
-            getIt(param1: initialParams),
-            getIt(),
-          ),
-        )
-        ..registerFactoryParam<LoginPage, LoginInitialParams, dynamic>(
+        getIt(param1: initialParams),
+        getIt(),
+        getIt(),
+      ),
+    )
+    ..registerFactoryParam<LoginPage, LoginInitialParams, dynamic>(
           (initialParams, _) => LoginPage(
-            presenter: getIt(param1: initialParams),
-          ),
-        )
-      //DO-NOT-REMOVE MVP_GET_IT_CONFIG
+        presenter: getIt(param1: initialParams),
+      ),
+    )
+  //DO-NOT-REMOVE MVP_GET_IT_CONFIG
 
       ;
 }
