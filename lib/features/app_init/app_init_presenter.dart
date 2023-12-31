@@ -7,14 +7,13 @@ import 'package:flutter_demo/core/domain/use_cases/app_init_use_case.dart';
 import 'package:flutter_demo/core/utils/bloc_extensions.dart';
 import 'package:flutter_demo/core/utils/either_extensions.dart';
 import 'package:flutter_demo/core/utils/mvp_extensions.dart';
+import 'package:flutter_demo/dependency_injection/app_component.dart';
 import 'package:flutter_demo/features/app_init/app_init_navigator.dart';
 import 'package:flutter_demo/features/app_init/app_init_presentation_model.dart';
 import 'package:flutter_demo/features/auth/login/login_initial_params.dart';
-import 'package:flutter_demo/features/auth/login/login_navigator.dart';
 import 'package:flutter_demo/features/auth/login/login_page.dart';
-import 'package:flutter_demo/features/auth/login/login_presentation_model.dart';
-import 'package:flutter_demo/features/auth/login/login_presenter.dart';
 import 'package:flutter_demo/navigation/app_navigator.dart';
+
 
 
 
@@ -35,6 +34,7 @@ class AppInitPresenter extends Cubit<AppInitViewModel> with CubitToCubitCommunic
   final AppInitNavigator navigator;
   final AppInitUseCase appInitUseCase;
   final UserStore userStore;
+  final _loginPage = getIt<LoginPage>(param1: const LoginInitialParams());
 
   AppInitPresentationModel get _model => state as AppInitPresentationModel;
 
@@ -46,16 +46,7 @@ class AppInitPresenter extends Cubit<AppInitViewModel> with CubitToCubitCommunic
         )
         .asyncFold(
           (fail) => navigator.showError(fail.displayableFailure()),
-          (success) => navigator.appNavigator.push(
-            materialRoute(
-              LoginPage(
-                presenter: LoginPresenter(
-                  LoginPresentationModel.initial(const LoginInitialParams()),
-                  LoginNavigator(AppNavigator()),
-                ),
-              ),
-            ),
-          ), //todo!
+          (success) => navigator.appNavigator.pushReplacement(materialRoute(_loginPage),), //todo!
         );
   }
 
